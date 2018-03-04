@@ -9,17 +9,97 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+var articles = {
+  'article-one': {
+    title: 'Article one',
+    heading: 'Article one',
+    date: 'March 4th, 2018',
+    content: `
+      <p>
+          This is content of article one. This is content of article one. This is content of article one. This is content of article one.
+      </p>    
+      <p>
+          This is content of article one. This is content of article one. This is content of article one. This is content of article one.
+      </p>   
+      <p>
+          This is content of article one. This is content of article one. This is content of article one. This is content of article one.
+      </p>
+    `, 
+  },
+  'article-two': {
+    title: 'Article two',
+    heading: 'Article two',
+    date: 'March 5th, 2018',
+    content: `
+      <p>
+          This is content of article two. This is content of article two. This is content of article two. This is content of article two.
+      </p>    
+      <p>
+          This is content of article two. This is content of article two. This is content of article two. This is content of article two.
+      </p>   
+      <p>
+          This is content of article two. This is content of article two. This is content of article two. This is content of article two.
+      </p>
+    `, 
+  },
+  'article-three': {
+    title: 'Article three',
+    heading: 'Article three',
+    date: 'March 6th, 2018',
+    content: `
+      <p>
+          This is content of article three. This is content of article three. This is content of article three. This is content of article three.
+      </p>    
+      <p>
+          This is content of article three. This is content of article three. This is content of article three. This is content of article three.
+      </p>   
+      <p>
+          This is content of article three. This is content of article three. This is content of article three. This is content of article three.
+      </p>
+    `, 
+  },
+};
+
+function createTemplate(data) {
+  var title = data.title;
+  var date = data.date;
+  var heading = data.heading;
+  var content = data.content;
+  var htmlTemplate = `
+  <html>
+  <head>
+      <link href="/ui/article-style.css" rel="stylesheet"/>
+      <title>
+          ${title}
+      </title>
+  </head>
+  <body>
+      <div class="container">
+          <div>
+              <a href="/">Home</a>
+          </div>  
+          <hr/>
+          <h3>
+           ${heading}
+          </h3>    
+          <div>
+            ${date}
+          </div>   
+          <div>
+            ${content} 
+          </div>
+      </div>
+  </body>    
+</html>
+  `; 
+  return htmlTemplate;
+};
+
+app.get('/:articleName', function (req, res) {
+  var articleName = req.params.articleName;
+  res.send(createTemplate(articles[articleName]));
 });
 
-app.get('/article-two', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));

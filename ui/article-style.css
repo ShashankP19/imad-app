@@ -1,7 +1,9 @@
-body {
+.container {
     font-family: sans-serif;
-    background-color: aqua;
+    max-width: 800px;
+    margin: 0 auto;
     padding-left: 10px;
     padding-right: 10px;
-    color: grey; 
+    color: #292828;
+    padding-top: 50px;
 }
